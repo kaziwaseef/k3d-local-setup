@@ -1,0 +1,8 @@
+{
+    "editor.tabSize": 4,
+    "editor.trimAutoWhitespace": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    // Set the default
+    "editor.formatOnSave": false,
+}
