@@ -5,4 +5,7 @@
     "editor.detectIndentation": false,
     // Set the default
     "editor.formatOnSave": false,
+    "cSpell.words": [
+        "loadbalancer"
+    ],
 }

@@ -1,15 +1,15 @@
 apiVersion: k3d.io/v1alpha3
 kind: Simple
-# name: jTech
+# name: buzz
 servers: 1
 agents: 2
 kubeAPI:
-  host: "jtech.localhost"
+  host: "buzz.localhost"
   hostIP: "127.0.0.1"
-  hostPort: "6445"
-network: "jtech-network"
+  hostPort: "6446"
+network: "bse-network"
 ports:
-  - port: 13371:80
+  - port: 13372:80
     nodeFilters:
       - loadbalancer
 options:
@@ -24,7 +24,7 @@ options:
         - settings.workerConnections=2048
   k3s: # options passed on to K3s itself
     extraArgs: # additional arguments passed to the `k3s server|agent` command; same as `--k3s-arg`
-      - arg: --tls-san=jtech.localhost
+      - arg: --tls-san=buzz.localhost
         nodeFilters:
           - server:*
     nodeLabels:
