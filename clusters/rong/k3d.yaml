@@ -1,0 +1,36 @@
+apiVersion: k3d.io/v1alpha3
+kind: Simple
+# name: rong
+servers: 1
+agents: 2
+kubeAPI:
+  host: "rong.localhost"
+  hostIP: "127.0.0.1"
+  hostPort: "6444"
+network: "bse-network"
+ports:
+  - port: 13370:80
+    nodeFilters:
+      - loadbalancer
+options:
+  k3d: # k3d runtime settings
+    wait: true # wait for cluster to be usable before returning; same as `--wait` (default: true)
+    timeout: "60s" # wait timeout before aborting; same as `--timeout 60s`
+    disableLoadbalancer: false # same as `--no-lb`
+    disableImageVolume: false # same as `--no-image-volume`
+    disableRollback: false # same as `--no-Rollback`
+    loadbalancer:
+      configOverrides:
+        - settings.workerConnections=2048
+  k3s: # options passed on to K3s itself
+    extraArgs: # additional arguments passed to the `k3s server|agent` command; same as `--k3s-arg`
+      - arg: --tls-san=rong.localhost
+        nodeFilters:
+          - server:*
+    nodeLabels:
+      - label: environment=local # same as `--k3s-node-label 'foo=bar@agent:1'` -> this results in a Kubernetes node label
+        nodeFilters:
+          - agent:*
+  kubeconfig:
+    updateDefaultKubeconfig: true # add new cluster to your default Kubeconfig; same as `--kubeconfig-update-default` (default: true)
+    switchCurrentContext: true # also set current-context to the new cluster's context; same as `--kubeconfig-switch-context` (default: true)
